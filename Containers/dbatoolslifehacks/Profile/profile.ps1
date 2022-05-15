@@ -1,8 +1,8 @@
-Import-Module /workspace/Game/JessAndBeard.psm1
 $containers = $SQLInstances = $dbatools1, $dbatools2 = 'dbatools1', 'dbatools2'
+
 #region Set up connection
 $securePassword = ('dbatools.IO' | ConvertTo-SecureString -AsPlainText -Force)
-$continercredential = New-Object System.Management.Automation.PSCredential('sqladmin', $securePassword)
+$containerCredential = New-Object System.Management.Automation.PSCredential('sqladmin', $securePassword)
 
 $Global:PSDefaultParameterValues = @{
     "*dba*:SqlCredential"            = $continercredential
@@ -12,35 +12,19 @@ $Global:PSDefaultParameterValues = @{
     "*dba*:PrimarySqlCredential"     = $continercredential
     "*dba*:SecondarySqlCredential"   = $continercredential
 }
- 
 #endregion
 
 Remove-Item '/var/opt/backups/dbatools1' -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item '/shared' -Recurse -Force -ErrorAction SilentlyContinue
-Import-Module Pansies
-$ShallWePlayAGameSetting = Get-PSFConfigValue -Name JessAndBeard.shallweplayagame 
 
-if ($Host.Name -eq 'ConsoleHost') {
-    if ($ShallWePlayAGameSetting ) {
-        Set-PSFConfig -Module JessAndBeard -Name shallweplayagame -Value $false 
-        Start-Game
-    } else {
-        Get-Index
-    }
-} 
+Import-Module Pansies
 
 ######## POSH-GIT
 # with props to https://bradwilson.io/blog/prompt/powershell
 # ... Import-Module for posh-git here ...
-ipmo posh-git
-
+Import-Module posh-git
 Import-Module dbatools
 Import-Module dbachecks
-
-# maybe we can add something here if we want a path?if (-not (Get-PSDrive -Name Git -ErrorAction SilentlyContinue)) {
-# maybe we can add something here if we want a path?    $Error.Clear()
-# maybe we can add something here if we want a path?    $null = New-PSDrive -Name Git -PSProvider FileSystem -Root $GitRoot
-# maybe we can add something here if we want a path?}
 
 $ShowError = $false
 $ShowKube = $false
@@ -51,9 +35,6 @@ $ShowPath = $true
 $ShowDate = $true
 $ShowTime = $true
 $ShowUser = $true
-$ShowCountDown = $false
-$CountDownMessage = "Set `$CountDownMessage and `$CountDownEndDate Rob"
-$CountDownEndDate = 0
 # Background colors
 
 $GitPromptSettings.AfterStash.BackgroundColor = [ConsoleColor]::DarkGray
@@ -223,37 +204,6 @@ Set-Content Function:prompt {
         Write-Host (("+" * ((Get-Location -Stack).Count))) -NoNewline -ForegroundColor Cyan
     }
 
-    # Newline
-    Write-Host ""
-
-    if ($ShowCountDown) {
-        $Date = Get-Date
-        $Mins = ($CountDownEndDate - $Date).TotalMinutes
-        Write-Host $CountDownMessage -ForegroundColor DarkGreen -NoNewline
-        switch ($Mins) {
-            { $_ -ge 30 } {
-                $ToGo = [Math]::Round($mins, 1)
-                $Time = $Date.ToShortTimeString()
-                Write-Host " $Time $ToGo Mins to go" -ForegroundColor DarkGreen -NoNewline
-            }
-            { $_ -lt 30 -and $_ -gt 10 } {
-                $ToGo = [Math]::Round($mins, 1)
-                $Time = $Date.ToShortTimeString()
-                Write-Host " $Time " -ForegroundColor DarkGreen -NoNewline
-                Write-Host " $ToGo Mins to go" -ForegroundColor Yellow -NoNewline
-            }
-            { $_ -le 10 } {
-                $ToGo = [Math]::Round($mins, 1)
-                $Time = $Date.ToShortTimeString()
-                Write-Host " $Time " -ForegroundColor DarkGreen -NoNewline
-                Write-Host " $ToGo Mins to go" -ForegroundColor Red -BackgroundColor DarkYellow -NoNewline
-            }
-            Default { }
-        }
-        # Newline
-        Write-Host ""
-    }
-
     # Determine if the user is admin, so we color the prompt green or red
     $isAdmin = $false
     $isDesktop = ($PSVersionTable.PSEdition -eq "Desktop")
@@ -282,18 +232,3 @@ Set-Content Function:prompt {
     # Always have to return something or else we get the default prompt
     return " "
 }
-
-function whatsmyip {
-    [CmdletBinding()]
-    param (
-        [Parameter()]
-        [switch]
-        $clip
-    )
-    if ($clip) {
-            (Invoke-WebRequest -Uri "http://ifconfig.me/ip").Content | Set-Clipboard
-    } else {
-            (Invoke-WebRequest -Uri "http://ifconfig.me/ip").Content
-    }
-}
-
