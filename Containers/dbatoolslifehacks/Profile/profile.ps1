@@ -1,4 +1,3 @@
-
 Import-Module /workspace/Game/JessAndBeard.psm1
 $containers = $SQLInstances = $dbatools1, $dbatools2 = 'dbatools1', 'dbatools2'
 #region Set up connection
