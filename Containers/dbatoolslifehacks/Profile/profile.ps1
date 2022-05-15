@@ -5,8 +5,6 @@ $containers = $SQLInstances = $dbatools1, $dbatools2 = 'dbatools1', 'dbatools2'
 $securePassword = ('dbatools.IO' | ConvertTo-SecureString -AsPlainText -Force)
 $continercredential = New-Object System.Management.Automation.PSCredential('sqladmin', $securePassword)
 
-
-
 $Global:PSDefaultParameterValues = @{
     "*dba*:SqlCredential"            = $continercredential
     "*dba*:SourceSqlCredential"      = $continercredential
