@@ -32,4 +32,4 @@ RUN $ErrorActionPreference='Stop'; Install-Module -Name dbatools,PSFramework,dba
 
 # Copy Profile
 
-ADD ../../Profile/profile.ps1 /root/.config/powershell/
+ADD Profile/profile.ps1 /root/.config/powershell/
