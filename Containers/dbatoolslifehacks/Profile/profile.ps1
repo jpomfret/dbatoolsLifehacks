@@ -80,7 +80,6 @@ $GitPromptSettings.LocalWorkingStatusSymbol.BackgroundColor = [ConsoleColor]::Da
 $GitPromptSettings.StashColor.BackgroundColor = [ConsoleColor]::DarkGray
 $GitPromptSettings.WorkingColor.BackgroundColor = [ConsoleColor]::DarkGray
 
-
 # Foreground colors
 
 $GitPromptSettings.AfterStatus.ForegroundColor = [ConsoleColor]::Blue
