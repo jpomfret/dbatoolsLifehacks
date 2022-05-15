@@ -49,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: Container/dbatoolslifehacks2/
+          context: Containers/dbatoolslifehacks2/
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/dbatoolslifehacks2:latest
       -
         name: Add & Commit
