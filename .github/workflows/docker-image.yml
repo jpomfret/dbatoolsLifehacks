@@ -4,16 +4,12 @@ on:
   push:
     branches: [ main ]
     paths: 
-      - Containers/dbatoolslifehacks/dockerfile
-      - Containers/dbatoolslifehacks2/dockerfile
-      - Profile/profile.ps1
+      - Containers/**
     
   pull_request:
     branches: [ main ]
     paths:
-      - Containers/dbatoolslifehacks/dockerfile
-      - Containers/dbatoolslifehacks2/dockerfile
-      - Profile/profile.ps1
+      - Containers/**
   workflow_dispatch:
   
 jobs:
