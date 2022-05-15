@@ -30,7 +30,7 @@ jobs:
 
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -39,6 +39,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          context: Containers/dbatoolslifehacks/
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/dbatoolslifehacks:latest
           # tags: ${{ secrets.DOCKERHUB_USERNAME }}/dbatoolsprecon:${{ steps.bump.outputs.new_tag }},${{ secrets.DOCKERHUB_USERNAME }}/dbatoolsprecon:latest
       -
@@ -46,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: Container/
+          context: Container/dbatoolslifehacks2/
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/dbatoolslifehacks2:latest
       -
         name: Add & Commit
