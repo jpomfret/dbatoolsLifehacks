@@ -40,7 +40,6 @@ Import-Module dbachecks
 
 
 
-
 # maybe we can add something here if we want a path?if (-not (Get-PSDrive -Name Git -ErrorAction SilentlyContinue)) {
 # maybe we can add something here if we want a path?    $Error.Clear()
 # maybe we can add something here if we want a path?    $null = New-PSDrive -Name Git -PSProvider FileSystem -Root $GitRoot
