@@ -5,12 +5,12 @@ $securePassword = ('dbatools.IO' | ConvertTo-SecureString -AsPlainText -Force)
 $containerCredential = New-Object System.Management.Automation.PSCredential('sqladmin', $securePassword)
 
 $Global:PSDefaultParameterValues = @{
-    "*dba*:SqlCredential"            = $continercredential
-    "*dba*:SourceSqlCredential"      = $continercredential
-    "*dba*:DestinationSqlCredential" = $continercredential
-    "*dba*:DestinationCredential"    = $continercredential
-    "*dba*:PrimarySqlCredential"     = $continercredential
-    "*dba*:SecondarySqlCredential"   = $continercredential
+    "*dba*:SqlCredential"            = $containerCredential
+    "*dba*:SourceSqlCredential"      = $containerCredential
+    "*dba*:DestinationSqlCredential" = $containerCredential
+    "*dba*:DestinationCredential"    = $containerCredential
+    "*dba*:PrimarySqlCredential"     = $containerCredential
+    "*dba*:SecondarySqlCredential"   = $containerCredential
 }
 #endregion
 
