@@ -43,18 +43,18 @@ Find-DbaCommand -Author Pomfret
 
 ## 7. Get help on how to use a command
 Get-Help Test-DbaDbCompression
-Get-Help Test-DbaDbCompression -ShowWindow
+Get-Help Test-DbaDbCompression -ShowWindow # good for windows!
+Get-Help Test-DbaDbCompression -Online
 
 ## 8. Intro to Splatting
-Get-DbaDbCompression -SqlInstance "mssql1" -SqlCredential $Credential -Database "AdventureWorks2017"  | Select-Object -first 5
+Get-DbaDbCompression -SqlInstance $dbatools1 -Database "Northwind" | Select-Object -first 5
 
 # Splatting is a method of passing a collection of parameter values to a command as unit.
 # PowerShell associates each value in the collection with a command parameter.
 # Splatting makes your commands shorter and easier to read.
 # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting?view=powershell-6
 $splatGet = @{
-    SqlInstance   = "mssql1"
-    SqlCredential = $Credential
-    Database      = "AdventureWorks2017"
+    SqlInstance   = $dbatools1
+    Database      = "Northwind"
 }
 Get-DbaDbCompression @splatGet | Select-Object -first 5

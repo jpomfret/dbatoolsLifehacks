@@ -14,14 +14,14 @@ Get-Command -Module dbatools -Verb Test
 
 ## Am I at the latest version? Or within 1SP of the latest version
 $instanceSplat = @{
-    SqlInstance   = "mssql1", "mssql2"
+    SqlInstance   = $dbatools1, $dbatools2
 }
 Test-DbaBuild @instanceSplat -Latest | Format-Table Build, BuildLevel, BuildTarget, Compliant
-Test-DbaBuild @instanceSplat -MaxBehind 5CU | Format-Table Build, BuildLevel, BuildTarget, Compliant
+Test-DbaBuild @instanceSplat -MaxBehind 1CU | Format-Table Build, BuildLevel, BuildTarget, Compliant
 
-Start-Process https://dbatools.io/build
+#Start-Process https://dbatools.io/build
 
-"mssql1","mssql2" | Test-DbaBuild -Latest
+$dbatools1,$dbatools2 | Test-DbaBuild -Latest
 
 ## Test the compatibility level
 Test-DbaDbCompatibility @instanceSplat |
@@ -52,4 +52,4 @@ Select-Object SqlInstance, Total, MaxValue, RecommendedValue
 
 ## Dbachecks - automate checking your estate
 # https://github.com/sqlcollaborative/dbachecks
-Invoke-DbcCheck -SqlInstance mssql1, mssql2 -Check DatabaseStatus
+Invoke-DbcCheck -SqlInstance $dbatools1, $dbatools2 -Check DatabaseStatus

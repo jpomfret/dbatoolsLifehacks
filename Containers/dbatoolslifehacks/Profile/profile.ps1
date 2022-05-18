@@ -87,7 +87,6 @@ $GitPromptSettings.EnableStashStatus = $false
 $GitPromptSettings.ShowStatusWhenZero = $false
 
 ######## PROMPT
-
 Set-Content Function:prompt {
     if ($ShowDate) {
         Write-Host " $(Get-Date -Format "ddd dd MMM HH:mm:ss")" -ForegroundColor Black -BackgroundColor DarkGray -NoNewline
@@ -232,3 +231,23 @@ Set-Content Function:prompt {
     # Always have to return something or else we get the default prompt
     return " "
 }
+
+######## lifehacks setup
+# create DatabaseAdmin database
+$null = New-DbaDatabase -SqlInstance $dbatools1 -Name DatabaseAdmin
+
+$northwind = @{
+    SqlInstance = $dbatools1
+    Database    = 'Northwind'
+}
+
+# set recovery model to full
+$null = Set-DbaDbRecoveryModel @northwind -RecoveryModel Full
+
+# do some backups
+$null = Backup-DbaDatabase @northwind -Type Full
+$null = Backup-DbaDatabase @northwind -Type Differential
+$null = Backup-DbaDatabase @northwind -Type Log
+
+
+## run tests?
