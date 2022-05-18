@@ -11,7 +11,7 @@
 $instanceSplat = @{
     SqlInstance   = $dbatools1, $dbatools2
     Path          = '.\Export\'
-    Exclude       = 'ReplicationSettings'
+    Exclude       = 'ReplicationSettings','CentralManagementServer'
 }
 Export-DbaInstance @instanceSplat
 
