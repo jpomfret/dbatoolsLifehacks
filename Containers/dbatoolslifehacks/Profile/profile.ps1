@@ -250,4 +250,5 @@ $null = Backup-DbaDatabase @northwind -Type Differential
 $null = Backup-DbaDatabase @northwind -Type Log
 
 
-## run tests?
+## run tests
+Invoke-Pester .\Tests\demo.tests.ps1

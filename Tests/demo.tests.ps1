@@ -55,27 +55,20 @@ Describe "Two instances are available" {
 }
 # dbatools1 has 2 databases
 Describe "dbatools1 databases are good" {
-    Context "AdventureWorks2017 is good" {
-        $db = Get-DbaDatabase -SqlInstance $dbatools1
-        $adventureWorks = $db | where name -eq 'AdventureWorks2017'
-        It "AdventureWorks2017 is available" {
-            $adventureWorks | Should Not BeNullOrEmpty
+    $db = Get-DbaDatabase -SqlInstance $dbatools1
+    Context "Northwind is good" {
+        $Northwind = $db | Where-Object name -eq 'Northwind'
+        It "Northwind is available" {
+            $Northwind | Should Not BeNullOrEmpty
         }
-        It "AdventureWorks status is normal" {
-            $adventureWorks.Status | Should Be Normal
+        It "Northwind status is normal" {
+            $Northwind.Status | Should Be Normal
         }
-        It "AdventureWorks Compat is 140" {
-            $adventureWorks.Compatibility | Should Be 140
-        }
-    }
-    Context "Indexes are fixed on HumanResources.Employee (bug)" {
-        $empIndexes = (Get-DbaDbTable -SqlInstance $dbatools1 -Database AdventureWorks2017 -Table Employee).indexes | select name, IsUnique
-        It "There are now just two indexes" {
-            $empIndexes.Count | Should Be 2
+        It "Northwind Compat is 140" {
+            $Northwind.Compatibility | Should Be 130
         }
     }
     Context "DatabaseAdmin is good" {
-        $db = Get-DbaDatabase -SqlInstance $dbatools1
         $DatabaseAdmin = $db | where name -eq 'DatabaseAdmin'
         It "DatabaseAdmin is available" {
             $DatabaseAdmin | Should Not BeNullOrEmpty
@@ -84,41 +77,19 @@ Describe "dbatools1 databases are good" {
             $DatabaseAdmin.Status | Should Be Normal
         }
         It "DatabaseAdmin Compat is 140" {
-            $DatabaseAdmin.Compatibility | Should Be 140
+            $DatabaseAdmin.Compatibility | Should Be 150
         }
     }
 }
 
 Describe "Backups worked" {
-    Context "AdventureWorks was backed up" {
+    Context "Northwind was backed up" {
         $instanceSplat = @{
             SqlInstance = $dbatools1
+            Database = 'Northwind'
         }
-        It "AdventureWorks has backup history" {
+        It "Northwind has backup history" {
             Get-DbaDbBackupHistory @instanceSplat | Should Not BeNullOrEmpty
-        }
-    }
-}
-
-Describe "Proc architecture is x64" {
-    Context "Proc arch is good" {
-        It "env:processor_architecture should be AMD64" -skip {
-            $env:PROCESSOR_ARCHITECTURE | Should Be "AMD64"
-        }
-    }
-}
-
-Describe "Check what's running" {
-    $processes = Get-Process zoomit*, teams, slack -ErrorAction SilentlyContinue
-    Context "Check tools running" {
-        It "ZoomIt64 is running" -skip {
-            ($processes | Where-Object ProcessName -eq 'Zoomit64') | Should Not BeNullOrEmpty
-        }
-        It "Slack is not running" -skip {
-            ($processes | Where-Object ProcessName -eq 'Slack') | Should BeNullOrEmpty
-        }
-        It "Teams is not running" -skip {
-            ($processes | Where-Object ProcessName -eq 'Teams') | Should BeNullOrEmpty
         }
     }
 }
