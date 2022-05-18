@@ -82,7 +82,7 @@ $compatSplat = @{
 Get-DbaDbCompatibility @compatSplat |
 Select-Object SqlInstance, Database, Compatibility
 
-$compatSplat.Add('Database', 'DatabaseAdmin')
+$compatSplat.Add('Database', 'Northwind')
 $compatSplat.Add('Compatibility', '150')
 
 Set-DbaDbCompatibility @compatSplat -Verbose
@@ -95,6 +95,6 @@ Set-DbaDbCompatibility @compatSplat -Verbose
 # sp_refreshview against all user views
 $upgradeSplat = @{
     SqlInstance = $dbatools2
-    Database    = "DatabaseAdmin"
+    Database    = "Pubs"
 }
 Invoke-DbaDbUpgrade @upgradeSplat -Force

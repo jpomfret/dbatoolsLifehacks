@@ -233,6 +233,9 @@ Set-Content Function:prompt {
 }
 
 ######## lifehacks setup
+# clear out the export folder
+Get-ChildItem ./Export/ | Remove-item -Recurse
+
 # create DatabaseAdmin database
 $null = New-DbaDatabase -SqlInstance $dbatools1 -Name DatabaseAdmin
 
