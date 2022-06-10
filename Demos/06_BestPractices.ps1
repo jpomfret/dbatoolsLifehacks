@@ -51,5 +51,5 @@ Test-DbaMaxMemory @instanceSplat |
 Select-Object SqlInstance, Total, MaxValue, RecommendedValue
 
 ## Dbachecks - automate checking your estate
-# https://github.com/sqlcollaborative/dbachecks
+# https://github.com/dataplat/dbachecks
 Invoke-DbcCheck -SqlInstance $dbatools1, $dbatools2 -Check DatabaseStatus
