@@ -7,8 +7,8 @@ Describe "Module is good to go" {
         It "Module was imported" {
             $module | Should Not BeNullOrEmpty
         }
-        It "Module version is 1.1.95" {
-            $module.Version | Should Be "1.1.95"
+        It "Module version is 1.1.103" {
+            $module.Version | Should Be "1.1.103"
         }
         It "Module should import 528 commands" {
             (get-command -module dbatools -CommandType Function | Measure).Count | Should Be 528
@@ -90,6 +90,30 @@ Describe "Backups worked" {
         }
         It "Northwind has backup history" {
             Get-DbaDbBackupHistory @instanceSplat | Should Not BeNullOrEmpty
+        }
+    }
+}
+
+Describe "Login exists" {
+    Context "JessP Login is on dbatools1" {
+        $loginSplat = @{
+            SqlInstance = $dbatools1
+            Login = 'JessP'
+        }
+        It "JessP login exists on dbatools1" {
+            Get-DbaLogin @loginSplat | Should Not BeNullOrEmpty
+        }
+    }
+    Context "JessP user is on Northwind" {
+        $userSplat = @{
+            SqlInstance = $dbatools1
+            User = 'JessP'
+        }
+        It "JessP user exists in Northwind" {
+            Get-DbaDbUser @userSplat | Should Not BeNullOrEmpty
+        }
+        It "JessP user is db_owner in Northwind" {
+            Get-DbaDbUser @userSplat | Should Not BeNullOrEmpty
         }
     }
 }
