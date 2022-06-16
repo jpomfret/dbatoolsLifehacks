@@ -236,7 +236,7 @@ Set-Content Function:prompt {
 # Add the JessP login
 New-DbaLogin -SqlInstance $dbatools1 -Login JessP
 New-DbaDbUser -SqlInstance $dbatools1 -Login JessP -Database Northwind
-Add-DbaDbRoleMember -SqlInstance $dbatools1 -User JessP -Role db_owner
+Add-DbaDbRoleMember -SqlInstance $dbatools1 -User JessP -Role db_owner -Database Northwind -Confirm:$false
 
 # clear out the export folder
 Get-ChildItem ./Export/ | Remove-item -Recurse
