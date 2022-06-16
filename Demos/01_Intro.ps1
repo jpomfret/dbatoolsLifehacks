@@ -25,7 +25,7 @@ Import-Module dbatools
 
 ## 4. List modules currently imported into your session
 Get-Module dbatools
-## 1.1.103
+## 1.1.106
 
 ## 5. List module versions that are available
 Get-Module dbatools -ListAvailable
