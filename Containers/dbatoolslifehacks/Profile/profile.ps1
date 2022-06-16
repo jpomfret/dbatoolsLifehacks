@@ -234,9 +234,9 @@ Set-Content Function:prompt {
 
 ######## lifehacks setup
 # Add the JessP login
-New-DbaLogin -SqlInstance $dbatools1 -Login JessP
-New-DbaDbUser -SqlInstance $dbatools1 -Login JessP -Database Northwind
-Add-DbaDbRoleMember -SqlInstance $dbatools1 -User JessP -Role db_owner -Database Northwind -Confirm:$false
+$null = New-DbaLogin -SqlInstance $dbatools1 -Login JessP -SecurePassword $securePassword
+$null = New-DbaDbUser -SqlInstance $dbatools1 -Login JessP -Database Northwind
+$null = Add-DbaDbRoleMember -SqlInstance $dbatools1 -User JessP -Role db_owner -Database Northwind -Confirm:$false
 
 # clear out the export folder
 Get-ChildItem ./Export/ | Remove-item -Recurse
