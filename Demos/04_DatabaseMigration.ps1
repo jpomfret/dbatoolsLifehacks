@@ -69,7 +69,7 @@ Copy-DbaLogin @migrateLoginSplat
 ## Set source dbs offline
 $offlineSplat = @{
     SqlInstance = $dbatools1
-    Database    = "Northwind", "DatabaseAdmin"
+    Database    = $dbs.Name
     Offline     = $true
     Force       = $true
 }

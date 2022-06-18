@@ -7,7 +7,6 @@
 # Review backup history
 # Backup your databases
 # Test those backups
-# Your backups are useless if they can't be restored
 # Save restore testing results to a table
 # A DISASTER STRIKES
 
