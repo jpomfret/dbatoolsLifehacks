@@ -4,3 +4,15 @@ USER root
 # some cleanup
 RUN apt-get autoremove -y \
     && apt-get clean -y
+
+# Install dbatools prerelease
+SHELL ["/usr/bin/pwsh", "-c"]
+RUN $ErrorActionPreference='Stop'; Install-Module -Name dbatools -Force -AllowPreRelease;
+
+# set the dbatools config to not require encryption - change in SMO
+SHELL ["/usr/bin/pwsh", "-c"]
+RUN Set-DbatoolsConfig -Name sql.connection.trustcert -Value $true -passthru | Register-DbatoolsConfig; Set-DbatoolsConfig -Name sql.connection.encrypt -Value Optional -passthru | Register-DbatoolsConfig
+
+# set the server name
+SHELL ["/usr/bin/pwsh", "-c"]
+RUN Invoke-DbaQuery -SqlInstance localhost -Query "declare @oldSrv sysname; select @oldSrv = srvname from master.dbo.sysservers; EXEC sp_dropserver @oldSrv; EXEC sp_addserver 'dbatools1', local"
