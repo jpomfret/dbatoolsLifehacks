@@ -252,6 +252,8 @@ $null = Backup-DbaDatabase @northwind -Type Full
 $null = Backup-DbaDatabase @northwind -Type Differential
 $null = Backup-DbaDatabase @northwind -Type Log
 
+# make sure there are no databases on dbatools2
+$null = Get-DbaDatabase -SQlInstance $dbatools2 -ExcludeSystem | Remove-DbaDatabase -Confirm:$false
 
 ## run tests
 Invoke-Pester .\Tests\demo.tests.ps1

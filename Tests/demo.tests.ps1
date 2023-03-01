@@ -7,11 +7,11 @@ Describe "Module is good to go" {
         It "Module was imported" {
             $module | Should Not BeNullOrEmpty
         }
-        It "Module version is 1.1.103" {
-            $module.Version | Should Be "1.1.103"
+        It "Module version is 1.1.145" {
+            $module.Version | Should Be "1.1.145"
         }
-        It "Module should import 528 commands" {
-            (get-command -module dbatools -CommandType Function | Measure).Count | Should Be 528
+        It "Module should import 533 commands" {
+            (get-command -module dbatools -CommandType Function | Measure).Count | Should Be 533
         }
     }
 }
@@ -55,7 +55,9 @@ Describe "Two instances are available" {
 }
 # dbatools1 has 2 databases
 Describe "dbatools1 databases are good" {
-    $db = Get-DbaDatabase -SqlInstance $dbatools1
+    BeforeAll {
+        $db = Get-DbaDatabase -SqlInstance $dbatools1
+    }
     Context "Northwind is good" {
         $Northwind = $db | Where-Object name -eq 'Northwind'
         It "Northwind is available" {
@@ -78,6 +80,17 @@ Describe "dbatools1 databases are good" {
         }
         It "DatabaseAdmin Compat is 140" {
             $DatabaseAdmin.Compatibility | Should Be 150
+        }
+    }
+}
+
+Describe "dbatools2 shouldn't have any databases" {
+    BeforeAll {
+        $db = Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem
+    }
+    Context "There should be no databases" {
+        It "Get-DbaDatabase should return nothing" {
+            $db | Should BeNullOrEmpty
         }
     }
 }
