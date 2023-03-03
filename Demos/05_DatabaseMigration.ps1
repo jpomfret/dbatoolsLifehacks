@@ -83,7 +83,7 @@ Get-DbaDbCompatibility @compatSplat |
 Select-Object SqlInstance, Database, Compatibility
 
 $compatSplat.Add('Database', 'Northwind')
-$compatSplat.Add('Compatibility', '150')
+$compatSplat.Add('Compatibility', '160') # need dbatools 2.0 for 160
 
 Set-DbaDbCompatibility @compatSplat -Verbose
 
