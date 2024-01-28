@@ -56,14 +56,14 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/dbatoolslifehacks2:${{ steps.bump.outputs.new_tag }},${{ secrets.DOCKERHUB_USERNAME }}/dbatoolslifehacks2:latest
       -
         name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v2
+        uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "dbatoolslifehacks:.*"
           replace: "dbatoolslifehacks:${{ steps.bump.outputs.new_tag }}"
           include: ".devcontainer/docker-compose.yml" 
       -
         name: Find and Replace Instance2
-        uses: jacobtomlinson/gha-find-replace@v2
+        uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "dbatoolslifehacks2:.*"
           replace: "dbatoolslifehacks2:${{ steps.bump.outputs.new_tag }}"
