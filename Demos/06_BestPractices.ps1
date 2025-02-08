@@ -14,14 +14,14 @@ Get-Command -Module dbatools -Verb Test
 
 ## Am I at the latest version? Or within 1SP of the latest version
 $instanceSplat = @{
-    SqlInstance   = $dbatools1, $dbatools2
+    SqlInstance   = 'dbatools1','dbatools2'
 }
 Test-DbaBuild @instanceSplat -Latest | Format-Table Build, BuildLevel, BuildTarget, Compliant
 Test-DbaBuild @instanceSplat -MaxBehind 1CU | Format-Table Build, BuildLevel, BuildTarget, Compliant
 
 #Start-Process https://dbatools.io/build
 
-$dbatools1,$dbatools2 | Test-DbaBuild -Latest
+'dbatools1','dbatools2' | Test-DbaBuild -Latest
 
 ## Test the compatibility level
 Test-DbaDbCompatibility @instanceSplat |
@@ -33,7 +33,7 @@ Test-DbaDbOwner @instanceSplat |
 Select-Object SqlInstance, Database, DBState, CurrentOwner, TargetOwner, OwnerMatch |
 Format-Table
 
-## Test the recovery model  -- default is only full?
+## Test the recovery model
 Test-DbaDbRecoveryModel @instanceSplat |
 Select-Object SqlInstance, Database, ConfiguredRecoveryModel, ActualRecoveryModel |
 Format-Table
@@ -52,4 +52,4 @@ Select-Object SqlInstance, Total, MaxValue, RecommendedValue
 
 ## Dbachecks - automate checking your estate
 # https://github.com/dataplat/dbachecks
-Invoke-DbcCheck -SqlInstance $dbatools1, $dbatools2 -Check DatabaseStatus
+Invoke-DbcCheck -SqlInstance 'dbatools1','dbatools2' -Check DatabaseStatus

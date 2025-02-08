@@ -12,7 +12,7 @@
 
 ## Add Login (AD user/group)
 $loginSplat = @{
-    SqlInstance    = $dbatools1
+    SqlInstance    = "dbatools1"
     Login          = "JessP"
     SecurePassword = $securePassword
 }
@@ -20,7 +20,7 @@ New-DbaLogin @loginSplat
 
 ##	Add User
 $userSplat = @{
-    SqlInstance = $dbatools1
+    SqlInstance = "dbatools1"
     Login       = "JessP"
     Database    = "DatabaseAdmin"
 }
@@ -28,7 +28,7 @@ New-DbaDbUser @userSplat
 
 ##	Add to reader role
 $roleSplat = @{
-    SqlInstance = $dbatools1
+    SqlInstance = "dbatools1"
     User        = "JessP"
     Database    = "DatabaseAdmin"
     Role        = "db_datareader"
@@ -41,7 +41,7 @@ Add-DbaDbRoleMember @roleSplat
 ##	Change password for SQL account
 $newPassword = (Read-Host -Prompt "Enter the new password" -AsSecureString)
 $pwdSplat = @{
-    SqlInstance    = $dbatools1
+    SqlInstance    = "dbatools1"
     Login          = "JessP"
     SecurePassword = $newPassword
 }

@@ -19,7 +19,7 @@ Get-Command -Module dbatools -Verb Copy
 
 ## Get databases
 $datatbaseSplat = @{
-    SqlInstance   = $dbatools1
+    SqlInstance   = "dbatools1"
     ExcludeSystem = $true
     OutVariable   = "dbs"        # OutVariable to also capture this to use later
 }
@@ -29,14 +29,14 @@ Format-Table
 
 # Get Logins
 $loginSplat = @{
-    SqlInstance = $dbatools1
+    SqlInstance = "dbatools1"
 }
 Get-DbaLogin @loginSplat |
 Select-Object SqlInstance, Name, LoginType
 
 # Get Processes
 $processSplat = @{
-    SqlInstance = $dbatools1
+    SqlInstance = "dbatools1"
     Database    = "DatabaseAdmin"
 }
 Get-DbaProcess @processSplat |
@@ -47,7 +47,7 @@ Get-DbaProcess @processSplat | Stop-DbaProcess
 
 ## Migrate the databases
 $migrateDbSplat = @{
-    Source        = $dbatools1
+    Source        = "dbatools1"
     Destination   = $dbatools2
     Database      = $dbs.name
     BackupRestore = $true
@@ -59,7 +59,7 @@ Copy-DbaDatabase @migrateDbSplat
 
 ## Migrate login
 $migrateLoginSplat = @{
-    Source      = $dbatools1
+    Source      = "dbatools1"
     Destination = $dbatools2
     Login       = "JessP"
     Verbose     = $true
@@ -68,7 +68,7 @@ Copy-DbaLogin @migrateLoginSplat
 
 ## Set source dbs offline
 $offlineSplat = @{
-    SqlInstance = $dbatools1
+    SqlInstance = "dbatools1"
     Database    = "Northwind", "DatabaseAdmin"
     Offline     = $true
     Force       = $true

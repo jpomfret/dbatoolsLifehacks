@@ -9,7 +9,7 @@
 # Use to monitor environment for changes
 
 $instanceSplat = @{
-    SqlInstance   = $dbatools1, $dbatools2
+    SqlInstance   = 'dbatools1','dbatools2'
     Path          = '.\Export\'
     Exclude       = 'ReplicationSettings','CentralManagementServer'
 }

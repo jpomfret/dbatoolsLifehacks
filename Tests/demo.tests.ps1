@@ -7,11 +7,11 @@ Describe "Module is good to go" {
         It "Module was imported" {
             $module | Should Not BeNullOrEmpty
         }
-        It "Module version is 2.0.0" {
-            $module.Version | Should Be "2.0.0"
+        It "Module version is 2.1.28" {
+            $module.Version | Should Be "2.1.28"
         }
-        It "Module should import 672 commands" {
-            (get-command -module dbatools -CommandType Function | Measure).Count | Should Be 672
+        It "Module should import 694 commands" {
+            (get-command -module dbatools -CommandType Function | Measure).Count | Should Be 694
         }
     }
 }
@@ -41,11 +41,11 @@ Describe "Credentials exist" {
 # two instances
 Describe "Two instances are available" {
     Context "Two instances are up" {
-        $dbatools1 = Connect-DbaInstance -SqlInstance $dbatools1
+        "dbatools1" = Connect-DbaInstance -SqlInstance "dbatools1"
         $dbatools2 = Connect-DbaInstance -SqlInstance $dbatools2
         It "dbatools1 is available" {
-            $dbatools1.Name | Should Not BeNullOrEmpty
-            $dbatools1.Name | Should Be 'dbatools1'
+            "dbatools1".Name | Should Not BeNullOrEmpty
+            "dbatools1".Name | Should Be 'dbatools1'
         }
         It "dbatools2 is available" {
             $dbatools2.Name | Should Not BeNullOrEmpty
@@ -56,7 +56,7 @@ Describe "Two instances are available" {
 # dbatools1 has 2 databases
 Describe "dbatools1 databases are good" {
     BeforeAll {
-        $db = Get-DbaDatabase -SqlInstance $dbatools1
+        $db = Get-DbaDatabase -SqlInstance "dbatools1"
     }
     Context "Northwind is good" {
         $Northwind = $db | Where-Object name -eq 'Northwind'
@@ -98,7 +98,7 @@ Describe "dbatools2 shouldn't have any databases" {
 Describe "Backups worked" {
     Context "Northwind was backed up" {
         $instanceSplat = @{
-            SqlInstance = $dbatools1
+            SqlInstance = "dbatools1"
             Database = 'Northwind'
         }
         It "Northwind has backup history" {

@@ -233,8 +233,8 @@ Set-Content Function:prompt {
 }
 
 ######## lifehacks setup
-# clear out the export folder
-Test-Path (./Export/) {
+# clear out the export folder if it exists
+if(Test-Path './Export/') {
     Get-ChildItem ./Export/ | Remove-item -Recurse
 }
 

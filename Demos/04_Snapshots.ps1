@@ -10,7 +10,7 @@
 
 ## Take a snapshot
 $snapshotSplat = @{
-    SqlInstance = $dbatools1
+    SqlInstance = "dbatools1"
     Database    = "Northwind"
 }
 New-DbaDbSnapshot @snapshotSplat
