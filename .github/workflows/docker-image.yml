@@ -42,14 +42,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push First Container
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           push: true
           context: Containers/dbatoolslifehacks/
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/dbatoolslifehacks:${{ steps.bump.outputs.new_tag }},${{ secrets.DOCKERHUB_USERNAME }}/dbatoolslifehacks:latest
       -
         name: Build and push Sql Instance 2
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           push: true
           context: Containers/dbatoolslifehacks2/
