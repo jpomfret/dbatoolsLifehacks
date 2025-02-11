@@ -14,7 +14,7 @@
 # Install a module from the PowerShell Gallery
 Install-Module dbatools
 
-# Install the new 2.0 version
+# Install the latest prerelease version
 Install-Module dbatools -AllowPrerelease
 
 # Save a module and then copy it to a machine without internet access
