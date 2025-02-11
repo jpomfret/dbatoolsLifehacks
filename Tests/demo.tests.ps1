@@ -41,11 +41,11 @@ Describe "Credentials exist" {
 # two instances
 Describe "Two instances are available" {
     Context "Two instances are up" {
-        "dbatools1" = Connect-DbaInstance -SqlInstance "dbatools1"
+        $dbatools1 = Connect-DbaInstance -SqlInstance "dbatools1"
         $dbatools2 = Connect-DbaInstance -SqlInstance $dbatools2
         It "dbatools1 is available" {
-            "dbatools1".Name | Should Not BeNullOrEmpty
-            "dbatools1".Name | Should Be 'dbatools1'
+            $dbatools1.Name | Should Not BeNullOrEmpty
+            $dbatools1.Name | Should Be 'dbatools1'
         }
         It "dbatools2 is available" {
             $dbatools2.Name | Should Not BeNullOrEmpty
